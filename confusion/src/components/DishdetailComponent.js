@@ -20,9 +20,9 @@ class Dishdetail extends Component {
                     <p>-- {comment.author}, 
                             {new Intl.DateTimeFormat('en-US', {
                             year: 'numeric',
-                            month: 'long',
+                            month: 'short',
                             day: '2-digit'
-                        }).format(new Date(comment.date))}
+                        }).format(new Date(Date.parse(comment.date)))}
                     </p>
                 </li>
                 )
@@ -63,20 +63,25 @@ class Dishdetail extends Component {
             )
         }
     }
-
+    
     render() {
         const dish = this.props.dish
-        if (dish == null) {
-            return (<div></div>)
-        } else {
+        if (dish != null) {
+            
             const dishItem = this.renderDish(dish)
             const commentItem = this.renderComments(dish.comments)
+            
             return (
+                <div className='container'>
                 <div className='row'>
                     {dishItem}
                     {commentItem}
                 </div>
+                </div>
             )
+            
+        } else {
+            return (<div></div>)
         }
     }
 }
